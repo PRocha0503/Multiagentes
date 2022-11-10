@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CarController : MonoBehaviour
 {
@@ -17,6 +12,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float currentSpeed = 0;
     private Vector3 target = Vector3.zero;
     private Rigidbody rb;
+    private bool hasTarget = false;
 
 
     private void Awake()
@@ -27,7 +23,11 @@ public class CarController : MonoBehaviour
     private void Update()
     {
         if (moveCar) SetTarget();
-        if (target == Vector3.zero) return;
+        if (target == Vector3.zero)
+        {
+            hasTarget = false;
+            return;
+        }
         if (Vector3.Distance(transform.position, target) <= 1) target = Vector3.zero;
         transform.rotation = Quaternion.RotateTowards(transform.rotation,
             Quaternion.LookRotation(target - transform.position), rotationSpeed * Time.deltaTime);
@@ -43,6 +43,7 @@ public class CarController : MonoBehaviour
         bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
         if (!hasHit) return;
         
+        hasTarget = true;
         target = new Vector3(hit.point.x, transform.position.y, hit.point.z);
     }
     
@@ -55,6 +56,11 @@ public class CarController : MonoBehaviour
     public float GetCurrentSpeed()
     {
         return rb.velocity.magnitude;
+    }
+    
+    public bool GetHasTarget()
+    {
+        return hasTarget;
     }
 }
 
