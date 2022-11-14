@@ -1,44 +1,9 @@
 fileFormatVersion: 2
-guid: 8a5e5200eff986540b81c5290c195113
+guid: 688220ebd3ccd4346bb1565a631a8192
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Metal
-    second: {fileID: 2100000, guid: 14d9a8b36a4bf9e4686adf38652f42a0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Red Lights
-    second: {fileID: 2100000, guid: 8c81c5aa085c33e429857baa174f5880, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Red Paint
-    second: {fileID: 2100000, guid: 200da5c217fa6d2498227888e4332710, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wheel Metal
-    second: {fileID: 2100000, guid: a146f81294f18cc46aca2bc8dabd47c8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wheel.001
-    second: {fileID: 2100000, guid: c7ddabcad03a3ef4d90201f2f7a32cae, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: White Lights
-    second: {fileID: 2100000, guid: 7b6b28357faeefa4e93b4a83dfa44b23, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Windows
-    second: {fileID: 2100000, guid: 34c7a03448d192442bb3308288f984d2, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
