@@ -6,7 +6,7 @@ public class CityBuilder : MonoBehaviour
 {
     [SerializeField] TextAsset layout;
     [SerializeField] GameObject roadPrefab;
-    [SerializeField] GameObject buildingPrefab;
+    [SerializeField] GameObject[] buildingPrefabs;
     [SerializeField] GameObject semaphorePrefab;
     [SerializeField] private GameObject ovniPrefab;
     [SerializeField] int tileSize;
@@ -68,9 +68,10 @@ public class CityBuilder : MonoBehaviour
                 tile.transform.parent = transform;
                 x += 1;
             } else if (tiles[i] == '#') {
+                int prefabIndex = Random.Range(0, buildingPrefabs.Length);
                 position = new Vector3(x * tileSize, 0, y * tileSize);
-                tile = Instantiate(buildingPrefab, position, Quaternion.identity);
-                tile.transform.localScale = new Vector3(1, Random.Range(0.5f, 2.0f), 1);
+                tile = Instantiate(buildingPrefabs[prefabIndex], position, Quaternion.identity);
+                tile.transform.localScale = new Vector3(1, Random.Range(0.8f, 1.5f), 1);
                 tile.transform.parent = transform;
                 x += 1;
             } else if (tiles[i] == '\n') {
