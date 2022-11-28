@@ -4,17 +4,20 @@ from rowAgent import RowAgent
 from trafficLightAgent import TrafficLightAgent
 
 class CarAgent(Agent):
-    def __init__(self,id,model) -> None:
+    def __init__(self,id,model,start) -> None:
         super().__init__(id,model)
         self.destination = ""
         self.chooseDestination()
 
         self.route = []
 
-        self.calculateRoute()
+        self.calculateRoute(start)
 
-    def calculateRoute(self):
-        self.route = self.model.graph.a_star_algorithm('0-0', self.destination)
+    def calculateRoute(self,start):
+        self.route = self.model.graph.a_star_algorithm(f'{start[0]}-{start[1]}', self.destination)
+        if not self.route:
+            print("ERROR")
+            print(f"Start: {start[0]},{start[1]} to {self.destination}")
         
     
     def continueRoute(self):
@@ -48,24 +51,25 @@ class CarAgent(Agent):
     def isInTrafficLight(self):
         x,y = self.pos
         dir = self.getRowDirection()
-        if dir == "+x":
+        if dir == "+x" and x+1 < self.model.grid.width:
             traffic = self.hasAgent(self.listContents(x+1,y),TrafficLightAgent)
             if  traffic and traffic.status == False:
                 return True
-        elif dir == "-x":
+        elif dir == "-x" and x-1 > 0:
             traffic = self.hasAgent(self.listContents(x-1,y),TrafficLightAgent)
             if  traffic and traffic.status == False:
                 return True
-        elif dir == "+y":
+        elif dir == "+y" and y+1 < self.model.grid.height:
             traffic = self.hasAgent(self.listContents(x,y+1),TrafficLightAgent)
             if  traffic and traffic.status == False:
                 return True
-        elif dir == "-y":
+        elif dir == "-y" and y-1 > 0:
             traffic = self.hasAgent(self.listContents(x,y-1),TrafficLightAgent)
             if  traffic and traffic.status== False:
                 return True
         return False
     def move(self):
+        if not self.route: return
         if  self.isInTrafficLight():
             return
         if self.trafficInRoute():
@@ -100,19 +104,24 @@ class CarAgent(Agent):
         x,y = self.pos
         possiblePlaces = self.model.adjList[f"{x}-{y}"]
         availablePlaces = []
+        occupiedPlaces = []
         for place in possiblePlaces:
             pos = [int(x) for x in place[0].split("-")]
             if len(self.listContents(pos[0],pos[1])) == 1:
                 availablePlaces.append(pos)
-        return availablePlaces
+            else: 
+                occupiedPlaces.append(pos)
+        return availablePlaces, occupiedPlaces
     
     def recalculateRoute(self):
-        print("recalculating")
-        ap = self.availableRoutes()
+        ap,op = self.availableRoutes()
         if len(ap) > 0:
             print("HAS OPTIONS")
             x,y = random.choice(ap)
             posibleRoute = self.model.graph.a_star_algorithm(f"{x}-{y}", self.destination)
-            if posibleRoute:
+            if posibleRoute :
+                for o in op:
+                    if o in posibleRoute:
+                        self.continueRoute()
                 self.route = posibleRoute
             self.continueRoute()

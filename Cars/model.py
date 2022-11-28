@@ -1,3 +1,4 @@
+import random
 from mesa import Model, agent
 from mesa.time import RandomActivation
 from mesa.space import MultiGrid
@@ -29,6 +30,7 @@ rowDirections = {
 }
 
 class Graph:
+    # Retirved FROM : 
     def __init__(self, adjac_lis):
         self.adjac_lis = adjac_lis
  
@@ -139,15 +141,23 @@ class CarsModel(Model):
         self.schedule = RandomActivation(self)
         #Running
         self.running = True
+        #Posible destinations
         self.destinations = []
-        self.numCars = 20
-
-
+        #Read file
         self.setup(file)
-
+        #Adj list
         self.adjList = {}
+        #Create adj list
         self.createAdjList()
+        #Graph
         self.graph = Graph(self.adjList)
+        #Posible cars start points
+        self.corners = [
+            (0,0),
+            (0,self.grid.height-1),
+            (self.grid.width-1,self.grid.height-1),
+            (self.grid.width-1,1)
+        ]
 
         
     
@@ -162,36 +172,25 @@ class CarsModel(Model):
         data = data.split("\n")
         for y,row in enumerate(data):
             for x,cell in enumerate(row):
-                #TODO REMOVE THIS LOOP
-                if cell in classDict:
-                    if cell in rowDirections:
+                if cell in rowDirections:
+                    #Crate agent
+                    agent = classDict[cell](f"{x}{y}{cell}",self,rowDirections[cell]) 
+                else:
+                    if classDict[cell] == BuildingAgent:
                         #Crate agent
-                        agent = classDict[cell](f"{x}{y}{cell}",self,rowDirections[cell])
-                        #Add agent to the grid
-                        self.grid.place_agent(agent,(x,self.grid.height-y-1))
-                        #Add agent to the schedule
-                        self.schedule.add(agent)
-                    else:
-                        if classDict[cell] == BuildingAgent:
+                        agent = classDict[cell](f"{x}-{y}{cell}",self,False)
+                        if cell == "D":
+                            agent.destination = True
+                            self.destinations.append((x,self.grid.height-y-1))
+                    else: 
+                        if classDict[cell] == TrafficLightAgent:
+                            onId = 1 if cell == "S" else 2
                             #Crate agent
-                            agent = classDict[cell](f"{x}-{y}{cell}",self,False)
-                            if cell == "D":
-                                agent.destination = True
-                                self.destinations.append((x,self.grid.height-y-1))
-
-                            #Add agent to the grid
-                            self.grid.place_agent(agent,(x,self.grid.height-y-1))
-                            #Add agent to the schedule
-                            self.schedule.add(agent)
-                        else: 
-                            if classDict[cell] == TrafficLightAgent:
-                                onId = 1 if cell == "S" else 2
-                                #Crate agent
-                                agent = classDict[cell](f"{x}-{y}{cell}",self,onId)
-                                #Add agent to the grid
-                                self.grid.place_agent(agent,(x,self.grid.height-y-1))
-                                #Add agent to the schedule
-                                self.schedule.add(agent)
+                            agent = classDict[cell](f"{x}-{y}{cell}",self,onId)
+                #Add agent to the grid
+                self.grid.place_agent(agent,(x,self.grid.height-y-1))
+                #Add agent to the schedule
+                self.schedule.add(agent)
 
     def createAdjList(self):
         """
@@ -209,38 +208,22 @@ class CarsModel(Model):
                         nX,nY = neighbor.pos
                         nD = neighbor.direction
                         if rowA.direction == "+x":
-                            if nX >= x and nD == "+x":
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
-                            elif nY >= y and nD == "+y":
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
-                            elif nY <= y and nD == "-y":
+                            if (nX > x and nD == "+x" )or( nY >= y and nD == "+y") or( nY <= y and nD == "-y"):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                         elif rowA.direction == "-x":
-                            if nX <= x and nD == "-x":
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
-                            elif nY >= y and nD == "+y":
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
-                            elif nY <= y and nD == "-y":
+                            if (nX < x and nD == "-x" )or( nY >= y and nD == "+y" )or( nY <= y and nD == "-y"):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                         elif rowA.direction == "+y":
-                            if nY >= y and nD == "+y":
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
-                            elif nX >= x and nD == "+x":
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
-                            elif nX <= x and nD == "-x":
+                            if (nY > y and nD == "+y") or (nX >= x and nD == "+x") or (nX <= x and nD == "-x"):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                         elif rowA.direction == "-y":
-                            if nY <= y and nD == "-y":
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
-                            elif nX >= x and nD == "+x":
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
-                            elif nX <= x and nD == "-x":
+                            if (nY < y and nD == "-y") or (nX >= x and nD == "+x") or (nX <= x and nD == "-x"):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                     elif isinstance(neighbor,TrafficLightAgent):
                         nX,nY = neighbor.pos
                         dir = rowA.direction
                         if (dir == "+x" or dir == "-x") and y == nY:
-                            if nX > x:
+                            if nX > x :
                                 self.adjList[f"{x}-{y}"].append((f"{nX+1}-{nY}",1)) 
                             elif nX < x:
                                 self.adjList[f"{x}-{y}"].append((f"{nX-1}-{nY}",1))
@@ -248,8 +231,7 @@ class CarsModel(Model):
                             if nY > y:
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY+1}",1))
                             elif nY < y:
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY-1}",1))
-                        
+                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY-1}",1))              
                     elif isinstance(neighbor,BuildingAgent):
                         if neighbor.destination:
                             nX,nY = neighbor.pos
@@ -270,7 +252,9 @@ class CarsModel(Model):
 
     def placeCar(self):
         #Crate agent
-        agent =CarAgent(f"{self.random.random() }-car",self)
+        x,y = random.choice(self.corners)
+        agent =CarAgent(f"{self.random.random() }-car",self,(x,y))
+        #Random corner
         #Add agent to the grid
         self.grid.place_agent(agent,(0,self.grid.height-0-1))
         #Add agent to the schedule
@@ -302,5 +286,6 @@ class CarsModel(Model):
         possibility = self.random.random()
         if possibility < 1:
             self.placeCar()
+
         #Advance the schedule
         self.schedule.step()

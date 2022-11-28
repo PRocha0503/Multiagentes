@@ -26,8 +26,10 @@ def getDimensionsFromFile(filename):
 def init():
     global carsModel,currentStep
     currentStep = 0
-    width,height = getDimensionsFromFile("base.txt")
-    carsModel = CarsModel("base.txt",width,height)
+    filename = request.json['filename']
+    maxFrames = request.json['maxFrames']
+    width,height = getDimensionsFromFile(filename)
+    carsModel = CarsModel(filename,width,height)
     return jsonify({"message":"Parameters recieved, model initiated."})
 
 
