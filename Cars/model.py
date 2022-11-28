@@ -266,14 +266,7 @@ class CarsModel(Model):
         input: none
         output: array
         """
-        cars = {}
-        for robot in self.schedule.agents:
-            if type(robot) is CarAgent:
-                cars[robot.unique_id] = {
-                    "x":robot.pos[0],"y":0,"z":robot.pos[1]
-                }
-
-        return cars
+        return [{"x":robot.pos[0],"y":0,"z":robot.pos[1],"id":robot.unique_id} for robot in self.schedule.agents if type(robot) is CarAgent]
 
     def getTrafficLights(self):
         """

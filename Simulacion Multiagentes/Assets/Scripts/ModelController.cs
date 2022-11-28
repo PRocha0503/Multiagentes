@@ -4,11 +4,24 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
-
-public class CarData
+[Serializable]
+public class CarJSON
 {
-    public Dictionary<string, Vector3> cars;
+    public string id;
+    public int x;
+    public int y;
+    public int z;
 }
+
+[Serializable]
+
+public class CarData {
+
+    public List<CarJSON> cars;
+
+}
+
+
 
 public class TrafficLightData
 {
@@ -148,7 +161,7 @@ public class ModelController : MonoBehaviour
 
     private IEnumerator GetCars()
     {   
-        UnityWebRequest www = UnityWebRequest.Get(serverUrl + "akwdokaowkdo");
+        UnityWebRequest www = UnityWebRequest.Get(serverUrl + getCarsEndpoint);
         yield return www.SendWebRequest();
  
         if (www.result != UnityWebRequest.Result.Success)
@@ -157,28 +170,26 @@ public class ModelController : MonoBehaviour
         {
             carData = JsonUtility.FromJson<CarData>(www.downloadHandler.text);
 
+            Debug.Log(carData.cars.Count);
+
             // Store the old positions for each agentF
             oldCarPositions = new Dictionary<string, Vector3>(newCarPositions);
-            
-            Debug.Log(carData.cars);
-            
-            
 
             newCarPositions.Clear();
             
 
-            foreach (KeyValuePair<string,Vector3> data in carData.cars)
+            foreach (var data in carData.cars)
             {
-                if (carObjects.ContainsKey(data.Key))
+                if (carObjects.ContainsKey(data.id))
                 {
-                    newCarPositions[data.Key] = data.Value;
+                    newCarPositions[data.id] = new Vector3(data.x,data.y,data.z);
                 }
                 else
                 {
-                    GameObject car = Instantiate(carPrefab, data.Value, Quaternion.identity);
-                    carObjects.Add(data.Key, car);
-                    newCarPositions.Add(data.Key, data.Value);
-                    oldCarPositions.Add(data.Key, data.Value);
+                    GameObject car = Instantiate(carPrefab,new Vector3(data.x,data.y,data.z), Quaternion.identity);
+                    carObjects.Add(data.id, car);
+                    newCarPositions.Add(data.id, new Vector3(data.x,data.y,data.z));
+                    oldCarPositions.Add(data.id, new Vector3(data.x,data.y,data.z));
                 }
             }
         }
