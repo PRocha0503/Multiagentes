@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 427406559112593428}
   - component: {fileID: 7670076079759951500}
   - component: {fileID: 8397599772664504225}
-  - component: {fileID: 5884693128623471079}
-  - component: {fileID: 8196632525856554196}
   - component: {fileID: 5634117276298242159}
   m_Layer: 0
   m_Name: Car Light 1
@@ -205,126 +203,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &5884693128623471079
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560983134594310533}
-  m_Mesh: {fileID: 0}
---- !u!114 &8196632525856554196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560983134594310533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1e5529f2795e6344b38c49382e29006, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lockTransforms: 0
-  renderWireFrame: 0
-  lightType: 0
-  lightMultiplier: 1
-  spotExponent: 1
-  constantAttenuation: 1
-  linearAttenuation: 10
-  quadraticAttenuation: 100
-  aspect: 1
-  slices: 30
-  colorTint: {r: 1, g: 1, b: 1, a: 1}
-  noiseSpeed: {x: 0, y: 0, z: 0}
-  useDithering: 0
-  ditherAmount: 0
-  useSoftBlend: 0
-  useCurves: 0
-  worldScrollAmount: 0
-  shadowMode: 0
-  shadowMapRes: 256
-  shadowBlurPasses: 0
-  shadowBlurSize: 0
-  renderFullShadows: 0
-  _renderShadowMapInUpdate: 0
-  spotRange: 1
-  spotNear: 0.1
-  spotAngle: 45
-  orthoSize: 0.5
-  spotEmission: {fileID: 0}
-  spotNoise: {fileID: 0}
-  spotShadow: {fileID: 0}
-  pointLightRadius: 1
-  pointEmission: {fileID: 0}
-  pointNoise: {fileID: 0}
-  pointShadow: {fileID: 0}
-  areaVolume: {fileID: 0}
-  volumeShape: 0
-  shapeValue: 0
-  volumeTextureOffset: {x: 0, y: 0, z: 0}
-  volumeTextureScale: 0.5
-  lightGradient:
-    serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 0, g: 0, b: 0, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  fallOffCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _boundsCentreOffset: {x: 0, y: 0, z: 0}
-  _fallOffTexture: {fileID: 0}
-  spotMaterial: {fileID: 2100000, guid: 0ae03080a8dadc6448d3d12b54ed4f3c, type: 2}
-  pointMaterial: {fileID: 2100000, guid: dd36a29b2d153244ba3d06d8217c876c, type: 2}
-  areaMaterial: {fileID: 2100000, guid: 3d9186b180a5843f8810c59a305735cf, type: 2}
-  orthoMaterial: {fileID: 2100000, guid: 5c70705a1fd5647609ad8326ef5e2024, type: 2}
-  renderDepthShader: {fileID: 4800000, guid: 26c171c785261784f8909aae5f3697e4, type: 3}
-  meshContainer: {fileID: 0}
 --- !u!114 &5634117276298242159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,8 +428,6 @@ GameObject:
   - component: {fileID: 4702212783266256524}
   - component: {fileID: 3411728200296701083}
   - component: {fileID: 1521396785833599500}
-  - component: {fileID: 1017012322487486669}
-  - component: {fileID: 6583670890307843247}
   - component: {fileID: 1846585305557211604}
   m_Layer: 0
   m_Name: Car Light 2
@@ -742,126 +618,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1017012322487486669
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3498323102707742178}
-  m_Mesh: {fileID: 0}
---- !u!114 &6583670890307843247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3498323102707742178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1e5529f2795e6344b38c49382e29006, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lockTransforms: 0
-  renderWireFrame: 0
-  lightType: 0
-  lightMultiplier: 1
-  spotExponent: 1
-  constantAttenuation: 1
-  linearAttenuation: 10
-  quadraticAttenuation: 100
-  aspect: 1
-  slices: 30
-  colorTint: {r: 1, g: 1, b: 1, a: 1}
-  noiseSpeed: {x: 0, y: 0, z: 0}
-  useDithering: 0
-  ditherAmount: 0
-  useSoftBlend: 0
-  useCurves: 0
-  worldScrollAmount: 0
-  shadowMode: 0
-  shadowMapRes: 256
-  shadowBlurPasses: 0
-  shadowBlurSize: 0
-  renderFullShadows: 0
-  _renderShadowMapInUpdate: 0
-  spotRange: 1
-  spotNear: 0.1
-  spotAngle: 45
-  orthoSize: 0.5
-  spotEmission: {fileID: 0}
-  spotNoise: {fileID: 0}
-  spotShadow: {fileID: 0}
-  pointLightRadius: 1
-  pointEmission: {fileID: 0}
-  pointNoise: {fileID: 0}
-  pointShadow: {fileID: 0}
-  areaVolume: {fileID: 0}
-  volumeShape: 0
-  shapeValue: 0
-  volumeTextureOffset: {x: 0, y: 0, z: 0}
-  volumeTextureScale: 0.5
-  lightGradient:
-    serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 0, g: 0, b: 0, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  fallOffCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _boundsCentreOffset: {x: 0, y: 0, z: 0}
-  _fallOffTexture: {fileID: 0}
-  spotMaterial: {fileID: 2100000, guid: 0ae03080a8dadc6448d3d12b54ed4f3c, type: 2}
-  pointMaterial: {fileID: 2100000, guid: dd36a29b2d153244ba3d06d8217c876c, type: 2}
-  areaMaterial: {fileID: 2100000, guid: 3d9186b180a5843f8810c59a305735cf, type: 2}
-  orthoMaterial: {fileID: 2100000, guid: 5c70705a1fd5647609ad8326ef5e2024, type: 2}
-  renderDepthShader: {fileID: 4800000, guid: 26c171c785261784f8909aae5f3697e4, type: 3}
-  meshContainer: {fileID: 0}
 --- !u!114 &1846585305557211604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5814,7 +5570,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6919697889129288592}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5830,7 +5586,7 @@ Transform:
   - {fileID: 4636413326839117285}
   m_Father: {fileID: 8968801896808823243}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &7542990074917079448
 GameObject:
   m_ObjectHideFlags: 0

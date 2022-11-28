@@ -71,6 +71,7 @@ public class ModelController : MonoBehaviour
     private void Start()
     {
         //Initialize variables
+        carObjects = new Dictionary<string, GameObject>();
         carData = new CarData();
         trafficLightData = new TrafficLightData();
         oldCarPositions = new Dictionary<string, Vector3>();
@@ -178,8 +179,9 @@ public class ModelController : MonoBehaviour
             newCarPositions.Clear();
             
 
-            foreach (var data in carData.cars)
+            foreach (CarJSON data in carData.cars)
             {
+                Debug.Log(data.id);
                 if (carObjects.ContainsKey(data.id))
                 {
                     newCarPositions[data.id] = new Vector3(data.x,data.y,data.z);
