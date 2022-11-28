@@ -36,7 +36,7 @@ def init():
 @app.route('/cars', methods=['GET'])
 def getRobots():
     global carsModel
-    return jsonify({"positions":carsModel.getCars()})
+    return jsonify({"cars":carsModel.getCars()})
 
 @app.route('/trafficLights', methods=['GET'])
 def getTrafficLights():
