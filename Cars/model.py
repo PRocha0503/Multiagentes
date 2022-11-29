@@ -290,15 +290,7 @@ class CarsModel(Model):
             self.placeCar()
             self.placeCar()
             self.placeCar()
-            self.placeCar()
-            self.placeCar()
-            self.placeCar()
 
-            self.placeCar()
-
-            self.placeCar()
-
-            self.placeCar()
 
 
 
