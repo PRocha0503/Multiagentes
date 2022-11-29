@@ -236,12 +236,12 @@ class CarsModel(Model):
                         if rowA.direction == "+x":
                             if (nX > x and nD == "+x" ) and (nY != y): 
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",DIAGONAL))
-                            elif (nX > x and nD == "+x" ) or (nY >= y and nD == "+y") or( nY <= y and nD == "-y"):
+                            elif (nX > x and nD == "+x" ) or (nY >= y and nD == "+y" and nX>=x) or( nY <= y and nD == "-y"and nX>=x):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                         elif rowA.direction == "-x":
                             if (nX < x and nD == "-x" ) and (nY != y):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",DIAGONAL))
-                            elif (nX < x and nD == "-x" ) or ( nY >= y and nD == "+y" )or( nY <= y and nD == "-y"):
+                            elif (nX < x and nD == "-x" ) or ( nY >= y and nD == "+y" and nX <=x )or( nY <= y and nD == "-y"and nX <=x):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                         elif rowA.direction == "+y":
                             if (nY > y and nD == "+y") and (nX != x):
