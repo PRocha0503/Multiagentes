@@ -17,8 +17,20 @@ classDict = {
     "^": RowAgent,
     "#": BuildingAgent,
     "D": BuildingAgent,
-    "S": TrafficLightAgent,
-    "s": TrafficLightAgent
+    "a": TrafficLightAgent,
+    "A": TrafficLightAgent,
+    "b": TrafficLightAgent,
+    "B": TrafficLightAgent,
+    "c": TrafficLightAgent,
+    "C": TrafficLightAgent,
+    "e": TrafficLightAgent,
+    "E": TrafficLightAgent,
+    "f": TrafficLightAgent,
+    "F": TrafficLightAgent,
+    "g": TrafficLightAgent,
+    "G": TrafficLightAgent,
+    "h": TrafficLightAgent,
+    "H": TrafficLightAgent,
 
 }
 
@@ -29,6 +41,9 @@ rowDirections = {
     "^": "+y"
 }
 
+
+
+ 
 class Graph:
     # Retirved FROM : 
     def __init__(self, adjac_lis):
@@ -84,7 +99,6 @@ class Graph:
  
                 reconst_path.reverse()
  
-                print('Path found: {}'.format(reconst_path))
                 return reconst_path
  
             # for all the neighbors of the current node do
@@ -148,11 +162,11 @@ class CarsModel(Model):
         self.corners = [
             (0,0),
             (0,self.grid.height-1),
-            (self.grid.width-1,self.grid.height-1),
+            (self.grid.width-2,self.grid.height-1),
             (self.grid.width-1,1)
         ]
-
-        
+        #Create pais and antipairs for traffic lights
+        self.createTrafficLightsPairs()
     
     def setup(self,file):
         """
@@ -164,10 +178,12 @@ class CarsModel(Model):
             data = f.read()
         data = data.split("\n")
         for y,row in enumerate(data):
+            myY = 0
             for x,cell in enumerate(row):
                 if cell in rowDirections:
                     #Crate agent
                     agent = classDict[cell](f"{x}{y}{cell}",self,rowDirections[cell]) 
+                    #Direction in x
                 else:
                     if classDict[cell] == BuildingAgent:
                         #Crate agent
@@ -177,14 +193,30 @@ class CarsModel(Model):
                             self.destinations.append((x,self.grid.height-y-1))
                     else: 
                         if classDict[cell] == TrafficLightAgent:
-                            onId = 1 if cell == "S" else 2
+                            onId = 1 if cell == cell.lower() else 2
                             #Crate agent
-                            agent = classDict[cell](f"{x}-{y}{cell}",self,onId)
+                            agent = classDict[cell](f"{x}-{y}{cell}",self,onId,cell)
                 #Add agent to the grid
                 self.grid.place_agent(agent,(x,self.grid.height-y-1))
                 #Add agent to the schedule
                 self.schedule.add(agent)
-
+    
+    def createTrafficLightsPairs(self):
+        """
+        Create pairs and antipairs for traffic lights
+        input: none
+        output: none
+        """
+        for agent in self.schedule.agents:
+            if type(agent) == TrafficLightAgent:
+                antiAgent = agent.type.upper() if agent.type.islower() else agent.type.lower()
+                for agent2 in self.schedule.agents:
+                    if type(agent2) == TrafficLightAgent:
+                        if agent2.type == agent.type:
+                            agent.pair = agent2
+                        if agent2.type == antiAgent:
+                            agent.antipair = agent2
+                                 
     def createAdjList(self):
         """
         Create adjacency list
@@ -219,21 +251,23 @@ class CarsModel(Model):
                         elif rowA.direction == "-y":
                             if (nY < y and nD == "-y") and (nX != x):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",DIAGONAL))
-                            elif (nY < y and nD == "-y") or(nX >= x and nD == "+x") or (nX <= x and nD == "-x"):
+                            elif (nY < y and nD == "-y") or(nX >= x and nD == "+x" and nY<=y) or (nX <= x and nD == "-x" and nY<=y):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                     elif isinstance(neighbor,TrafficLightAgent):
                         nX,nY = neighbor.pos
                         dir = rowA.direction
-                        if (dir == "+x" or dir == "-x") and y == nY:
-                            if nX > x :
-                                self.adjList[f"{x}-{y}"].append((f"{nX+1}-{nY}",1)) 
-                            elif nX < x:
-                                self.adjList[f"{x}-{y}"].append((f"{nX-1}-{nY}",1))
-                        elif (dir == "+y" or dir == "-y") and x == nX:
-                            if nY > y:
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY+1}",1))
-                            elif nY < y:
-                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY-1}",1))              
+                        if dir == "+x"  and nX > x and nY == y:
+                            self.adjList[f"{x}-{y}"].append((f"{nX+1}-{nY}",1)) 
+                            neighbor.dir = "+x"
+                        elif dir == "-x" and nX < x and y == nY:
+                            self.adjList[f"{x}-{y}"].append((f"{nX-1}-{nY}",1))
+                            neighbor.dir = "-x"
+                        elif dir == "+y"  and x == nX and nY > y:
+                            self.adjList[f"{x}-{y}"].append((f"{nX}-{nY+1}",1))
+                            neighbor.dir = "+y"
+                        elif dir == "-y"and x == nX and nY < y:
+                            self.adjList[f"{x}-{y}"].append((f"{nX}-{nY-1}",1))  
+                            neighbor.dir = "-y"            
                     elif isinstance(neighbor,BuildingAgent):
                         if neighbor.destination:
                             nX,nY = neighbor.pos
@@ -258,7 +292,7 @@ class CarsModel(Model):
         agent =CarAgent(f"{self.random.random() }-car",self,(x,y))
         #Random corner
         #Add agent to the grid
-        self.grid.place_agent(agent,(0,self.grid.height-0-1))
+        self.grid.place_agent(agent,(x,y))
         #Add agent to the schedule
         self.schedule.add(agent)
 
@@ -278,6 +312,64 @@ class CarsModel(Model):
         """
         return [{"x":robot.pos[0],"y":0,"z":robot.pos[1],"status":robot.status,"id":f"{robot.pos[0]}-{robot.pos[1]}"} for robot in self.schedule.agents if type(robot) is TrafficLightAgent]
 
+    def changeTrafficLightStatus(self):
+        """
+        Change the traffic light status
+        input: none
+        output: none
+        """
+        counters = {
+            "a":0,
+            "A":0,
+            "b":0,
+            "B":0,
+            "c":0,
+            "C":0,
+            "e":0,
+            "E":0,
+            "f":0,
+            "F":0,
+            "g":0,
+            "G":0,
+            "h":0,
+            "H":0,
+        }
+        agents ={
+            "a":[],
+            "A":[],
+            "b":[],
+            "B":[],
+            "c":[],
+            "C":[],
+            "e":[],
+            "E":[],
+            "f":[],
+            "F":[],
+            "g":[],
+            "G":[],
+            "h":[],
+            "H":[],
+
+        }
+        for robot in self.schedule.agents:
+            if isinstance(robot,TrafficLightAgent):
+                # print(f"Traffic light {robot.type} has direction {robot.dir} and has count {robot.counter}")
+                counters[robot.type] += robot.counter
+                agents[robot.type].append(robot)
+                robot.counter = 0
+        for key in counters:
+            if key.islower():
+                if counters[key] >= counters[key.upper()]:
+                    for agent in agents[key]:
+                        agent.status = True
+                    for agent in agents[key.upper()]:
+                        agent.status = False
+                else:
+                    for agent in agents[key]:
+                        agent.status = False
+                    for agent in agents[key.upper()]:
+                        agent.status = True
+                
     def step(self):
         """
         Step function
@@ -288,12 +380,9 @@ class CarsModel(Model):
         possibility = self.random.random()
         if possibility < 1:
             self.placeCar()
-            self.placeCar()
-            self.placeCar()
 
 
-
-
-
+        #Smart traffic light
+        self.changeTrafficLightStatus()
         #Advance the schedule
         self.schedule.step()

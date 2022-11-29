@@ -1,0 +1,40 @@
+Date : 2022-11-29 12:03:28
+Directory : /home/rocha/Proyects/6to/Multiagentes/Cars
+Total : 13 files,  471 codes, 144 comments, 89 blanks, all 704 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Python   |          7 |        416 |        144 |         89 |        649 |
+| XML      |          6 |         55 |          0 |          0 |         55 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                      | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                         |         13 |        471 |        144 |         89 |        704 |
+| .idea                                                                                     |          6 |         55 |          0 |          0 |         55 |
+| .idea/inspectionProfiles                                                                  |          2 |         25 |          0 |          0 |         25 |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                  | language | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/rocha/Proyects/6to/Multiagentes/Cars/.idea/Cars.iml                                 | XML      |         12 |          0 |          0 |         12 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/.idea/inspectionProfiles/Project_Default.xml   | XML      |         19 |          0 |          0 |         19 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/.idea/inspectionProfiles/profiles_settings.xml | XML      |          6 |          0 |          0 |          6 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/.idea/misc.xml                                 | XML      |          4 |          0 |          0 |          4 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/.idea/modules.xml                              | XML      |          8 |          0 |          0 |          8 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/.idea/vcs.xml                                  | XML      |          6 |          0 |          0 |          6 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/buildingAgent.py                               | Python   |          9 |         17 |          6 |         32 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/carAgent.py                                    | Python   |        107 |          5 |         15 |        127 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/model.py                                       | Python   |        180 |         81 |         38 |        299 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/rowAgent.py                                    | Python   |          7 |         12 |          4 |         23 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/server.py                                      | Python   |         37 |          5 |         12 |         54 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/trafficLightAgent.py                           | Python   |         13 |         13 |          4 |         30 |
+| /home/rocha/Proyects/6to/Multiagentes/Cars/visualization.py                               | Python   |         63 |         11 |         10 |         84 |
+| Total                                                                                     |          |        471 |        144 |         89 |        704 |
++-------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

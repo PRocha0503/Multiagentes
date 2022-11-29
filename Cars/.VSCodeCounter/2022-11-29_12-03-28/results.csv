@@ -1,0 +1,15 @@
+"filename", "language", "Python", "XML", "comment", "blank", "total"
+"/home/rocha/Proyects/6to/Multiagentes/Cars/.idea/Cars.iml", "XML", 0, 12, 0, 0, 12
+"/home/rocha/Proyects/6to/Multiagentes/Cars/.idea/inspectionProfiles/Project_Default.xml", "XML", 0, 19, 0, 0, 19
+"/home/rocha/Proyects/6to/Multiagentes/Cars/.idea/inspectionProfiles/profiles_settings.xml", "XML", 0, 6, 0, 0, 6
+"/home/rocha/Proyects/6to/Multiagentes/Cars/.idea/misc.xml", "XML", 0, 4, 0, 0, 4
+"/home/rocha/Proyects/6to/Multiagentes/Cars/.idea/modules.xml", "XML", 0, 8, 0, 0, 8
+"/home/rocha/Proyects/6to/Multiagentes/Cars/.idea/vcs.xml", "XML", 0, 6, 0, 0, 6
+"/home/rocha/Proyects/6to/Multiagentes/Cars/buildingAgent.py", "Python", 9, 0, 17, 6, 32
+"/home/rocha/Proyects/6to/Multiagentes/Cars/carAgent.py", "Python", 107, 0, 5, 15, 127
+"/home/rocha/Proyects/6to/Multiagentes/Cars/model.py", "Python", 180, 0, 81, 38, 299
+"/home/rocha/Proyects/6to/Multiagentes/Cars/rowAgent.py", "Python", 7, 0, 12, 4, 23
+"/home/rocha/Proyects/6to/Multiagentes/Cars/server.py", "Python", 37, 0, 5, 12, 54
+"/home/rocha/Proyects/6to/Multiagentes/Cars/trafficLightAgent.py", "Python", 13, 0, 13, 4, 30
+"/home/rocha/Proyects/6to/Multiagentes/Cars/visualization.py", "Python", 63, 0, 11, 10, 84
+"Total", "-", 416, 55, 144, 89, 704

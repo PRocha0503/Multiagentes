@@ -72,7 +72,6 @@ def getDimensionsFromFile(filename):
     return x,y
 
 width,height = getDimensionsFromFile("base.txt")
-print(width,height)
 
 modelParams = {"file": "base.txt","width": width,"height": height}
 

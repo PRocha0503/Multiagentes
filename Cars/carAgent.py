@@ -17,8 +17,7 @@ class CarAgent(Agent):
         self.route = self.model.graph.a_star_algorithm(f'{start[0]}-{start[1]}', self.destination)
         if not self.route:
             print("ERROR")
-            print(f"Start: {start[0]},{start[1]} to {self.destination}")
-        
+           
     
     def continueRoute(self):
         if len(self.route) > 0:
