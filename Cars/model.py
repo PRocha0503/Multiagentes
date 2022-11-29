@@ -136,7 +136,7 @@ class CarsModel(Model):
     input:file
     output: model
     """
-    def __init__(self, file,width,height):
+    def __init__(self, file,width,height,smart=True):
         """
         Initialize the model
         input: file
@@ -167,6 +167,7 @@ class CarsModel(Model):
         ]
         #Create pais and antipairs for traffic lights
         self.createTrafficLightsPairs()
+        self.smart = smart
     
     def setup(self,file):
         """
@@ -377,12 +378,24 @@ class CarsModel(Model):
         output: none
         """
         #Place car in each frame
-        possibility = self.random.random()
-        if possibility < 1:
-            self.placeCar()
+        
+        self.placeCar()
+        self.placeCar()
+        self.placeCar()
+        
 
 
         #Smart traffic light
-        self.changeTrafficLightStatus()
+        if self.smart:
+            self.changeTrafficLightStatus()
+        else:
+            if self.schedule.steps % 15 == 0:
+                for robot in self.schedule.agents:
+                    if isinstance(robot,TrafficLightAgent):
+                        if robot.type.islower():
+                            robot.status = not robot.status
+                        else:
+                            robot.status = not robot.status
+
         #Advance the schedule
         self.schedule.step()

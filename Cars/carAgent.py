@@ -48,25 +48,20 @@ class CarAgent(Agent):
         return False
     
     def isInTrafficLight(self):
+
         x,y = self.pos
-        dir = self.getRowDirection()
-        if dir == "+x" and x+1 < self.model.grid.width:
-            traffic = self.hasAgent(self.listContents(x+1,y),TrafficLightAgent)
-            if  traffic and traffic.status == False:
-                return True
-        elif dir == "-x" and x-1 > 0:
-            traffic = self.hasAgent(self.listContents(x-1,y),TrafficLightAgent)
-            if  traffic and traffic.status == False:
-                return True
-        elif dir == "+y" and y+1 < self.model.grid.height:
-            traffic = self.hasAgent(self.listContents(x,y+1),TrafficLightAgent)
-            if  traffic and traffic.status == False:
-                return True
-        elif dir == "-y" and y-1 > 0:
-            traffic = self.hasAgent(self.listContents(x,y-1),TrafficLightAgent)
-            if  traffic and traffic.status== False:
-                return True
+        xNext,yNext = [int(x) for x in self.route[0].split("-")]
+        prox = {xNext, yNext}
+        if prox ==  {x+2,y} and self.hasAgent(self.listContents(x+1, y),TrafficLightAgent) and self.hasAgent(self.listContents(x+1, y),TrafficLightAgent).status == False:
+            return True
+        elif prox ==  {x-2,y} and self.hasAgent(self.listContents(x-1, y),TrafficLightAgent) and self.hasAgent(self.listContents(x-1, y),TrafficLightAgent).status == False:
+            return True
+        elif prox ==  {x,y+2} and self.hasAgent(self.listContents(x, y+1),TrafficLightAgent) and self.hasAgent(self.listContents(x, y+1),TrafficLightAgent).status == False:
+            return True
+        elif prox ==  {x,y-2} and self.hasAgent(self.listContents(x, y-1),TrafficLightAgent) and self.hasAgent(self.listContents(x, y-1),TrafficLightAgent).status == False:
+            return True
         return False
+    
     def move(self):
         if not self.route: return
         if  self.isInTrafficLight():
