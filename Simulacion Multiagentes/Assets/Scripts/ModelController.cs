@@ -14,19 +14,26 @@ public class CarJSON
 }
 
 [Serializable]
-
 public class CarData {
 
     public List<CarJSON> cars;
 
 }
 
+[Serializable]
+public class LightJSON
+{
+    public string id;
+    public bool status;
+    public int x;
+    public int y;
+    public int z;
+}
 
-
+[Serializable]
 public class TrafficLightData
 {
-    public List<Vector3> positions;
-    public bool green;
+    public List<LightJSON> positions;
 }
 
 public class DBInit
@@ -58,13 +65,13 @@ public class ModelController : MonoBehaviour
     Dictionary<string, Vector3> oldCarPositions;
     Dictionary<string, Vector3> newCarPositions;
     Dictionary<string, GameObject> carObjects;
-    List<Vector3> oldTrafficLightPositions;
-    List<Vector3> newTrafficLightPositions;
+    Dictionary<string, GameObject> trafficLightObjects;
+    Dictionary<string, bool> trafficLightStatus;
     // Pause the simulation while we get the update from the server
     bool hold = false;
 
     public bool realisticMovement;
-    public GameObject carPrefab, trafficLightPrefab;
+    public GameObject carPrefab, LightPrefab;
     public float timeToUpdate = 1.0f, timer, dt;
     
     // Start is called before the first frame update
@@ -76,9 +83,10 @@ public class ModelController : MonoBehaviour
         trafficLightData = new TrafficLightData();
         oldCarPositions = new Dictionary<string, Vector3>();
         newCarPositions = new Dictionary<string, Vector3>();
-        oldTrafficLightPositions = new List<Vector3>();
-        newTrafficLightPositions = new List<Vector3>();
-        
+        trafficLightObjects = new Dictionary<string, GameObject>();
+        trafficLightStatus = new Dictionary<string, bool>();
+
+
         trafficLights = new GameObject[5];
 
         timer = timeToUpdate;
@@ -106,9 +114,15 @@ public class ModelController : MonoBehaviour
         {
             if (!realisticMovement)
             {
+                if (oldCarPositions[newCarPosition.Key] == newCarPosition.Value) continue;
+                
                 Vector3 interpolated = Vector3.Lerp(oldCarPositions[newCarPosition.Key],
                     newCarPositions[newCarPosition.Key], dt);
                 carObjects[newCarPosition.Key].transform.localPosition = interpolated;
+                
+                // Vector3 interpolated = Vector3.Lerp(carObjects[newCarPosition.Key].transform.localPosition,
+                //     newCarPositions[newCarPosition.Key], dt);
+                // carObjects[newCarPosition.Key].transform.localPosition = interpolated;
 
                 Vector3 dir = oldCarPositions[newCarPosition.Key] - newCarPositions[newCarPosition.Key];
                 carObjects[newCarPosition.Key].transform.rotation = Quaternion.LookRotation(dir);
@@ -119,14 +133,6 @@ public class ModelController : MonoBehaviour
                 carObjects[newCarPosition.Key].GetComponent<CarController>().MoveTo(nextPosition);
             }
         }
-        /*for (int s = 0; s < trafficLights.Length; s++)
-        {
-            Vector3 interpolated = Vector3.Lerp(oldTrafficLightPositions[s], newTrafficLightPositions[s], dt);
-            trafficLights[s].transform.localPosition = interpolated;
-            Vector3 dir = oldTrafficLightPositions[s] - newTrafficLightPositions[s];
-            trafficLights[s].transform.rotation = Quaternion.LookRotation(dir);
-                
-        }*/
 
         // Move time from the last frame
         timer += Time.deltaTime;
@@ -173,8 +179,6 @@ public class ModelController : MonoBehaviour
         {
             carData = JsonUtility.FromJson<CarData>(www.downloadHandler.text);
 
-            Debug.Log(carData.cars.Count);
-
             // Store the old positions for each agentF
             oldCarPositions = new Dictionary<string, Vector3>(newCarPositions);
 
@@ -183,7 +187,6 @@ public class ModelController : MonoBehaviour
 
             foreach (CarJSON data in carData.cars)
             {
-                Debug.Log(data.id);
                 if (carObjects.ContainsKey(data.id))
                 {
                     newCarPositions[data.id] = new Vector3(data.x,data.y,data.z);
@@ -223,12 +226,27 @@ public class ModelController : MonoBehaviour
         {
             trafficLightData = JsonUtility.FromJson<TrafficLightData>(www.downloadHandler.text);
 
-            oldTrafficLightPositions = new List<Vector3>(newTrafficLightPositions);
+            trafficLightStatus.Clear();
 
-            newTrafficLightPositions.Clear();
+            foreach (LightJSON lightData in trafficLightData.positions)
+            {
+                if (trafficLightObjects.Count < trafficLightData.positions.Count)
+                {
+                    GameObject lightObject = Instantiate(LightPrefab,
+                        new Vector3(lightData.x, lightData.y, lightData.z), Quaternion.identity);
+                    lightObject.transform.parent = transform;
+                    trafficLightObjects.Add(lightData.id, lightObject);
+                }
+                trafficLightStatus.Add(lightData.id, lightData.status);
+            }
 
-            foreach(Vector3 v in trafficLightData.positions)
-                newTrafficLightPositions.Add(v);
+            foreach (KeyValuePair<string,GameObject> trafficLightObject in trafficLightObjects)
+            {
+                Debug.Log(trafficLightStatus[trafficLightObject.Key]);
+                trafficLightObject.Value.GetComponent<TrafficSignController>().SetLight(trafficLightStatus[trafficLightObject.Key]);
+            }
+            
+            
 
             hold = false;
         }

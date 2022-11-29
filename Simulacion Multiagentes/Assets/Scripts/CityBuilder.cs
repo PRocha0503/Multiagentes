@@ -31,7 +31,6 @@ public class CityBuilder : MonoBehaviour
         // and move down
         // Remove the last enter, and one more to start at 0
         int y = tiles.Split('\n').Length - 2;
-        Debug.Log(y);
 
         Vector3 position;
         GameObject tile;

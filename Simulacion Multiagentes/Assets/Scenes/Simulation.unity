@@ -607,7 +607,7 @@ MonoBehaviour:
   realisticMovement: 0
   carPrefab: {fileID: 1633056053288543168, guid: 8b48f0b0db7cc13498c1b5a390ad7694,
     type: 3}
-  trafficLightPrefab: {fileID: 8102729382312259521, guid: ec03db3fda9c46458bf4fb4f61cc11bd,
+  LightPrefab: {fileID: 3981458576086014913, guid: 9860ddc7d158a0f4db7a054f28656ccf,
     type: 3}
   timeToUpdate: 1
   timer: 0
