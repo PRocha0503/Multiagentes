@@ -84,16 +84,10 @@ public class ModelController : MonoBehaviour
 
         timer = timeToUpdate;
 
-        // for(int i = 0; i < numberOfCars; i++) 
-        //     cars[i] = Instantiate(carPrefab, Vector3.zero, Quaternion.identity);
-        // for(int i = 0; i < 5; i++)
-        //     trafficLights[i] = Instantiate(trafficLightPrefab, Vector3.zero, Quaternion.identity);
-
         StartCoroutine(SendConfiguration());
 
     }
-
-    // Update is called once per frame
+    
     private void Update() 
     {
         float t = timer/timeToUpdate;
@@ -189,9 +183,21 @@ public class ModelController : MonoBehaviour
                 else
                 {
                     GameObject car = Instantiate(carPrefab,new Vector3(data.x,data.y,data.z), Quaternion.identity);
+                    car.transform.parent = transform;
                     carObjects.Add(data.id, car);
                     newCarPositions.Add(data.id, new Vector3(data.x,data.y,data.z));
                     oldCarPositions.Add(data.id, new Vector3(data.x,data.y,data.z));
+                }
+            }
+
+            foreach (KeyValuePair<string,GameObject> carObject in carObjects)
+            {
+                if (!newCarPositions.ContainsKey(carObject.Key))
+                {
+                    Destroy(carObject.Value, 2.5f);
+                    carObjects.Remove(carObject.Key);
+                    oldCarPositions.Remove(carObject.Key);
+                    newCarPositions.Remove(carObject.Key);
                 }
             }
         }
