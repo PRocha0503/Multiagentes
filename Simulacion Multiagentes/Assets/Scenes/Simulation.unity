@@ -604,11 +604,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed9184c2cf7b7a4fbb025ed5d966154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  realisticMovement: 0
   carPrefab: {fileID: 1633056053288543168, guid: 8b48f0b0db7cc13498c1b5a390ad7694,
     type: 3}
   trafficLightPrefab: {fileID: 8102729382312259521, guid: ec03db3fda9c46458bf4fb4f61cc11bd,
     type: 3}
-  numberOfCars: 20
   timeToUpdate: 1
   timer: 0
   dt: 0

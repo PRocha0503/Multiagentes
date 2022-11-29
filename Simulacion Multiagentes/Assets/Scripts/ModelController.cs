@@ -63,9 +63,9 @@ public class ModelController : MonoBehaviour
     // Pause the simulation while we get the update from the server
     bool hold = false;
 
+    public bool realisticMovement;
     public GameObject carPrefab, trafficLightPrefab;
-    public int numberOfCars = 20;
-    public float timeToUpdate = 5.0f, timer, dt;
+    public float timeToUpdate = 1.0f, timer, dt;
     
     // Start is called before the first frame update
     private void Start()
@@ -78,8 +78,7 @@ public class ModelController : MonoBehaviour
         newCarPositions = new Dictionary<string, Vector3>();
         oldTrafficLightPositions = new List<Vector3>();
         newTrafficLightPositions = new List<Vector3>();
-
-        cars = new GameObject[numberOfCars];
+        
         trafficLights = new GameObject[5];
 
         timer = timeToUpdate;
@@ -105,11 +104,20 @@ public class ModelController : MonoBehaviour
         
         foreach (KeyValuePair<string, Vector3> newCarPosition in newCarPositions)
         {
-            Vector3 interpolated = Vector3.Lerp(oldCarPositions[newCarPosition.Key], newCarPositions[newCarPosition.Key], dt);
-            carObjects[newCarPosition.Key].transform.localPosition = interpolated;
-                
-            Vector3 dir = oldCarPositions[newCarPosition.Key] - newCarPositions[newCarPosition.Key];
-            carObjects[newCarPosition.Key].transform.rotation = Quaternion.LookRotation(dir);
+            if (!realisticMovement)
+            {
+                Vector3 interpolated = Vector3.Lerp(oldCarPositions[newCarPosition.Key],
+                    newCarPositions[newCarPosition.Key], dt);
+                carObjects[newCarPosition.Key].transform.localPosition = interpolated;
+
+                Vector3 dir = oldCarPositions[newCarPosition.Key] - newCarPositions[newCarPosition.Key];
+                carObjects[newCarPosition.Key].transform.rotation = Quaternion.LookRotation(dir);
+            }
+            else
+            {
+                Vector3 nextPosition = newCarPositions[newCarPosition.Key];
+                carObjects[newCarPosition.Key].GetComponent<CarController>().MoveTo(nextPosition);
+            }
         }
         /*for (int s = 0; s < trafficLights.Length; s++)
         {
@@ -194,7 +202,7 @@ public class ModelController : MonoBehaviour
             {
                 if (!newCarPositions.ContainsKey(carObject.Key))
                 {
-                    Destroy(carObject.Value, 2.5f);
+                    Destroy(carObject.Value, 2f);
                     carObjects.Remove(carObject.Key);
                     oldCarPositions.Remove(carObject.Key);
                     newCarPositions.Remove(carObject.Key);
