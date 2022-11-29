@@ -39,19 +39,12 @@ class Graph:
  
     # This is heuristic function which is having equal values for all nodes
     def h(self, n):
-        H = {
-            'A': 1,
-            'B': 1,
-            'C': 1,
-            'D': 1
-        }
- 
         return 1
 
     def a_star_algorithm(self, start, stop):
         # In this open_lst is a lisy of nodes which have been visited, but who's 
         # neighbours haven't all been always inspected, It starts off with the start 
-  #node
+        #node
         # And closed_lst is a list of nodes which have been visited
         # and who's neighbors have been always inspected
         open_lst = set([start])
@@ -72,7 +65,7 @@ class Graph:
             # it will find a node with the lowest value of f() -
             for v in open_lst:
                 if n == None or poo[v] + self.h(v) < poo[n] + self.h(n):
-                    n = v;
+                    n = v
  
             if n == None:
                 print('Path does not exist!')
@@ -201,6 +194,7 @@ class CarsModel(Model):
         for agents,x,y in self.grid.coord_iter():
             rowA = self.hasAgent(agents,RowAgent)
             destA = self.hasAgent(agents,BuildingAgent)
+            DIAGONAL = 1.1
             if rowA:
                 self.adjList[f"{x}-{y}"] = []
                 for neighbor in self.grid.get_neighbors((x,y),moore=True,include_center=False, radius=1):
@@ -208,16 +202,24 @@ class CarsModel(Model):
                         nX,nY = neighbor.pos
                         nD = neighbor.direction
                         if rowA.direction == "+x":
-                            if (nX > x and nD == "+x" )or( nY >= y and nD == "+y") or( nY <= y and nD == "-y"):
+                            if (nX > x and nD == "+x" ) and (nY != y): 
+                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",DIAGONAL))
+                            elif (nX > x and nD == "+x" ) or (nY >= y and nD == "+y") or( nY <= y and nD == "-y"):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                         elif rowA.direction == "-x":
-                            if (nX < x and nD == "-x" )or( nY >= y and nD == "+y" )or( nY <= y and nD == "-y"):
+                            if (nX < x and nD == "-x" ) and (nY != y):
+                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",DIAGONAL))
+                            elif (nX < x and nD == "-x" ) or ( nY >= y and nD == "+y" )or( nY <= y and nD == "-y"):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                         elif rowA.direction == "+y":
-                            if (nY > y and nD == "+y") or (nX >= x and nD == "+x") or (nX <= x and nD == "-x"):
+                            if (nY > y and nD == "+y") and (nX != x):
+                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",DIAGONAL))
+                            elif(nY > y and nD == "+y") or(nX >= x and nD == "+x") or (nX <= x and nD == "-x"):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                         elif rowA.direction == "-y":
-                            if (nY < y and nD == "-y") or (nX >= x and nD == "+x") or (nX <= x and nD == "-x"):
+                            if (nY < y and nD == "-y") and (nX != x):
+                                self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",DIAGONAL))
+                            elif (nY < y and nD == "-y") or(nX >= x and nD == "+x") or (nX <= x and nD == "-x"):
                                 self.adjList[f"{x}-{y}"].append((f"{nX}-{nY}",1))
                     elif isinstance(neighbor,TrafficLightAgent):
                         nX,nY = neighbor.pos
@@ -286,6 +288,20 @@ class CarsModel(Model):
         possibility = self.random.random()
         if possibility < 1:
             self.placeCar()
+            self.placeCar()
+            self.placeCar()
+            self.placeCar()
+            self.placeCar()
+            self.placeCar()
+
+            self.placeCar()
+
+            self.placeCar()
+
+            self.placeCar()
+
+
+
 
         #Advance the schedule
         self.schedule.step()

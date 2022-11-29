@@ -71,10 +71,10 @@ def getDimensionsFromFile(filename):
     y = len(data)
     return x,y
 
-width,height = getDimensionsFromFile("base2.txt")
+width,height = getDimensionsFromFile("base.txt")
 print(width,height)
 
-modelParams = {"file": "base2.txt","width": width,"height": height}
+modelParams = {"file": "base.txt","width": width,"height": height}
 
 grid = CanvasGrid(agentPortrayal, width, height, 500, 500)
 
