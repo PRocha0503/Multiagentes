@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using Random = UnityEngine.Random;
@@ -197,7 +198,7 @@ public class ModelController : MonoBehaviour
                 }
             }
 
-            foreach (KeyValuePair<string,GameObject> carObject in carObjects)
+            foreach (KeyValuePair<string,GameObject> carObject in carObjects.ToList())
             {
                 if (!newCarPositions.ContainsKey(carObject.Key))
                 {
