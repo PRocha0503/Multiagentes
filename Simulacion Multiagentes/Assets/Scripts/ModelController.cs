@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using Random = UnityEngine.Random;
+
 [Serializable]
 public class CarJSON
 {
@@ -59,9 +60,6 @@ public class ModelController : MonoBehaviour
     string updateEndpoint = "/step";
     TrafficLightData trafficLightData;
     CarData carData;
-    GameObject[] cars;
-    GameObject[] trafficLights;
-    //GameObject[] walls;
     Dictionary<string, Vector3> oldCarPositions;
     Dictionary<string, Vector3> newCarPositions;
     Dictionary<string, GameObject> carObjects;
@@ -71,7 +69,8 @@ public class ModelController : MonoBehaviour
     bool hold = false;
 
     public bool realisticMovement;
-    public GameObject carPrefab, LightPrefab;
+    public GameObject[] carPrefab; 
+    public GameObject LightPrefab;
     public float timeToUpdate = 1.0f, timer, dt;
     
     // Start is called before the first frame update
@@ -85,9 +84,6 @@ public class ModelController : MonoBehaviour
         newCarPositions = new Dictionary<string, Vector3>();
         trafficLightObjects = new Dictionary<string, GameObject>();
         trafficLightStatus = new Dictionary<string, bool>();
-
-
-        trafficLights = new GameObject[5];
 
         timer = timeToUpdate;
 
@@ -193,7 +189,7 @@ public class ModelController : MonoBehaviour
                 }
                 else
                 {
-                    GameObject car = Instantiate(carPrefab,new Vector3(data.x,data.y,data.z), Quaternion.identity);
+                    GameObject car = Instantiate(carPrefab[Random.Range(0,carPrefab.Length)], new Vector3(data.x,data.y,data.z), Quaternion.identity);
                     car.transform.parent = transform;
                     carObjects.Add(data.id, car);
                     newCarPositions.Add(data.id, new Vector3(data.x,data.y,data.z));

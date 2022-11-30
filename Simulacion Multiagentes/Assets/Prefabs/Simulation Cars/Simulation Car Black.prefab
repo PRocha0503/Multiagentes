@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 5215510953549417701}
   - component: {fileID: 4701583537073814193}
   m_Layer: 0
-  m_Name: Simulation Car
+  m_Name: Simulation Car Black
   m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5732,7 +5732,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7757294382022298769, guid: 16dfb5b7b7589e6439f8e0c52757fec9, type: 3}
+  - {fileID: 2100000, guid: c7ddabcad03a3ef4d90201f2f7a32cae, type: 2}
   - {fileID: -7184292951177722594, guid: 16dfb5b7b7589e6439f8e0c52757fec9, type: 3}
   - {fileID: -421017881620291296, guid: 16dfb5b7b7589e6439f8e0c52757fec9, type: 3}
   - {fileID: 6297950859826725545, guid: 16dfb5b7b7589e6439f8e0c52757fec9, type: 3}

@@ -605,8 +605,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   realisticMovement: 0
-  carPrefab: {fileID: 1633056053288543168, guid: 8b48f0b0db7cc13498c1b5a390ad7694,
-    type: 3}
+  carPrefab:
+  - {fileID: 1633056053288543168, guid: 0f749833a4b80604194bb11605078e9a, type: 3}
+  - {fileID: 1633056053288543168, guid: fe98fe3953b3e8c44a3e931f893f8569, type: 3}
+  - {fileID: 1633056053288543168, guid: d895fd17ccd5ca349879de3ca71928f7, type: 3}
+  - {fileID: 1633056053288543168, guid: 574098751cdaedd4b93e78a047f03079, type: 3}
+  - {fileID: 1633056053288543168, guid: 8b48f0b0db7cc13498c1b5a390ad7694, type: 3}
   LightPrefab: {fileID: 3981458576086014913, guid: 9860ddc7d158a0f4db7a054f28656ccf,
     type: 3}
   timeToUpdate: 1
