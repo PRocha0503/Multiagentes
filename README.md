@@ -86,5 +86,5 @@ python3 visualizacion.py
 5. Correr la escena
 
 ## Link del video de instalación
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=pGF4YNw-fNg)
 
-https://www.youtube.com/watch?v=pGF4YNw-fNg
