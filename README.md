@@ -86,5 +86,5 @@ python3 visualizacion.py
 5. Correr la escena
 
 ## Link del video de instalación
-[![INSTALACION](http://cdn.onlinewebfonts.com/svg/img_322443.png)](https://www.youtube.com/watch?v=pGF4YNw-fNg)
+[![INSTALACION](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_of_YouTube_%282015-2017%29.svg/502px-Logo_of_YouTube_%282015-2017%29.svg.png)](https://www.youtube.com/watch?v=pGF4YNw-fNg)
 
