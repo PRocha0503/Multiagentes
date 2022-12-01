@@ -84,3 +84,7 @@ python3 visualizacion.py
 4. Abrir la escena de Simulation
 
 5. Correr la escena
+
+## Link del video de instalación
+
+[![Watch the video](https://img.youtube.com/vi/1Q8fG0TtPlI/maxresdefault.jpg)](https://www.youtube.com/watch?v=pGF4YNw-fNg)
