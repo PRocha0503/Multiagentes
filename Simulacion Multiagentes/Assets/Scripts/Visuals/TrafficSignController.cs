@@ -8,16 +8,12 @@ public class TrafficSignController : MonoBehaviour
 {
     [SerializeField] private GameObject greenLight;
     [SerializeField] private GameObject redLight;
-    [SerializeField] private float rotationSpeed = 20f;
     
-    MeshRenderer redLightRenderer;
-    MeshRenderer greenLightRenderer;
+    [SerializeField] private MeshRenderer greenLightMesh;
+    [SerializeField] private MeshRenderer redLightMesh;
+    
+    [SerializeField] private float rotationSpeed = 2f;
 
-    private void Awake()
-    {
-        greenLightRenderer = greenLight.GetComponent<MeshRenderer>();
-        redLightRenderer = redLight.GetComponent<MeshRenderer>();
-    }
 
     private void Update()
     {
@@ -27,49 +23,36 @@ public class TrafficSignController : MonoBehaviour
 
     public void SetLight(bool isGreen)
     {
-        greenLightRenderer.enabled = isGreen;
-        redLightRenderer.enabled = !isGreen;
-
+        greenLightMesh.enabled = isGreen;
+        redLightMesh.enabled = !isGreen;
+        
         //StartCoroutine(SlideColors(isGreen));
     }
 
-    private IEnumerator SlideColors(bool isGreen)
+    /*private IEnumerator SlideColors(bool isGreen)
     {
         float duration = 1f;
         float elapsedTime = 0f;
-        float slider = -.01f;
 
         while (elapsedTime < duration)
         {
-            slider = Mathf.Lerp(-.01f, .01f, elapsedTime / duration);
+            var slider = Mathf.Lerp(-.01f, .01f, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             
             if (isGreen)
             {
-                foreach (Material material in greenLightRenderer.materials)
-                {
-                    material.SetFloat("Dissolve", slider);
-                }
-
-                foreach (Material material in redLightRenderer.materials)
-                {
-                    material.SetFloat("Dissolve", -slider);
-                }
+                greenLightMaterial.SetFloat("Dissolve", slider);
+                redLightMaterial.SetFloat("Dissolve", -slider);
             }
             else
             {
-                foreach (Material material in redLightRenderer.materials)
-                {
-                    material.SetFloat("Dissolve", slider);
-                }
-                
-                foreach (Material material in greenLightRenderer.materials)
-                {
-                    material.SetFloat("Dissolve", -slider);
-                }
+                redLightMaterial.SetFloat("Dissolve", slider);
+                greenLightMaterial.SetFloat("Dissolve", -slider);
             }
+
             yield return null;
+            StopAllCoroutines();
         }
-    }
-    
+    }*/
+
 }

@@ -246,7 +246,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8968801896808823243}
   - component: {fileID: 2948810456873398018}
-  - component: {fileID: 8033373718161676048}
   - component: {fileID: 5215510953549417701}
   - component: {fileID: 4701583537073814193}
   m_Layer: 0
@@ -284,23 +283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e15ddbf1dddf146a9ca0d4352398f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 300
-  acceleration: 0.5
-  maxSpeed: 2
-  currentSpeed: 0
---- !u!114 &8033373718161676048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633056053288543168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fabfb2276a5abf48a4d9e2f31396893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakLightMaterial: {fileID: 2100000, guid: 8c81c5aa085c33e429857baa174f5880, type: 2}
 --- !u!54 &5215510953549417701
 Rigidbody:
   m_ObjectHideFlags: 0

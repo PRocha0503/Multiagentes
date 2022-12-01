@@ -69,9 +69,9 @@ public class ModelController : MonoBehaviour
     // Pause the simulation while we get the update from the server
     bool hold = false;
 
-    public bool realisticMovement;
-    public GameObject[] carPrefab; 
-    public GameObject LightPrefab;
+    public bool betterCarMovement;
+    public GameObject[] carPrefabs; 
+    public GameObject lightPrefab;
     public float timeToUpdate = 1.0f, timer, dt;
     
     // Start is called before the first frame update
@@ -109,25 +109,23 @@ public class ModelController : MonoBehaviour
         
         foreach (KeyValuePair<string, Vector3> newCarPosition in newCarPositions)
         {
-            if (!realisticMovement)
+            if (!betterCarMovement)
             {
                 if (oldCarPositions[newCarPosition.Key] == newCarPosition.Value) continue;
                 
                 Vector3 interpolated = Vector3.Lerp(oldCarPositions[newCarPosition.Key],
                     newCarPositions[newCarPosition.Key], dt);
                 carObjects[newCarPosition.Key].transform.localPosition = interpolated;
-                
-                // Vector3 interpolated = Vector3.Lerp(carObjects[newCarPosition.Key].transform.localPosition,
-                //     newCarPositions[newCarPosition.Key], dt);
-                // carObjects[newCarPosition.Key].transform.localPosition = interpolated;
 
                 Vector3 dir = oldCarPositions[newCarPosition.Key] - newCarPositions[newCarPosition.Key];
                 carObjects[newCarPosition.Key].transform.rotation = Quaternion.LookRotation(dir);
             }
             else
             {
+                if (oldCarPositions[newCarPosition.Key] == newCarPosition.Value) continue;
+                
                 Vector3 nextPosition = newCarPositions[newCarPosition.Key];
-                carObjects[newCarPosition.Key].GetComponent<CarController>().MoveTo(nextPosition);
+                carObjects[newCarPosition.Key].GetComponent<CarController>().MoveTo(nextPosition, timeToUpdate);
             }
         }
 
@@ -190,7 +188,7 @@ public class ModelController : MonoBehaviour
                 }
                 else
                 {
-                    GameObject car = Instantiate(carPrefab[Random.Range(0,carPrefab.Length)], new Vector3(data.x,data.y,data.z), Quaternion.identity);
+                    GameObject car = Instantiate(carPrefabs[Random.Range(0,carPrefabs.Length)], new Vector3(data.x,data.y,data.z), Quaternion.identity);
                     car.transform.parent = transform;
                     carObjects.Add(data.id, car);
                     newCarPositions.Add(data.id, new Vector3(data.x,data.y,data.z));
@@ -229,7 +227,7 @@ public class ModelController : MonoBehaviour
             {
                 if (trafficLightObjects.Count < trafficLightData.positions.Count)
                 {
-                    GameObject lightObject = Instantiate(LightPrefab,
+                    GameObject lightObject = Instantiate(lightPrefab,
                         new Vector3(lightData.x, lightData.y, lightData.z), Quaternion.identity);
                     lightObject.transform.parent = transform;
                     trafficLightObjects.Add(lightData.id, lightObject);

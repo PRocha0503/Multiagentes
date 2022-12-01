@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   greenLight: {fileID: 7952396853316491189}
   redLight: {fileID: 8154334761901883774}
+  greenLightMesh: {fileID: 351835166582950199}
+  redLightMesh: {fileID: 4903670619146238364}
   rotationSpeed: 20
 --- !u!1 &7952396853316491189
 GameObject:
@@ -97,7 +99,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7952396853316491189}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -181,7 +183,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8154334761901883774}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

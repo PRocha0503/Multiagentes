@@ -14,11 +14,11 @@ public class WheelController : MonoBehaviour
 
     private void Update()
     {
-        float distanceTraveled = carController.GetCurrentSpeed() * Time.deltaTime;
+        /*float distanceTraveled = carController.GetCurrentSpeed() * Time.deltaTime;
         float rotationInRadians = distanceTraveled / wheelRadius;
         float rotationInDegrees = rotationInRadians * Mathf.Rad2Deg;
         
         
-        transform.Rotate(0, -rotationInDegrees, 0);
+        transform.Rotate(0, -rotationInDegrees, 0);*/
     }
 }

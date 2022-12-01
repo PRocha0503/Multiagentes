@@ -1,58 +1,34 @@
+using System.Collections;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed = 10f;
-    [SerializeField] private float acceleration = 0.1f;
-    [SerializeField] private float maxSpeed = 10f;
-
-    [SerializeField] private float currentSpeed = 0;
-    private Vector3 target = Vector3.zero;
-    private Rigidbody rb;
     private bool hasTarget;
-
-
-    private void Awake()
+    
+    public void MoveTo(Vector3 target, float time)
     {
-        rb = GetComponent<Rigidbody>();
-        hasTarget = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX;
-        rb.constraints = RigidbodyConstraints.FreezePositionY;
-    }
-
-    private void Update()
-    {
-        if (target == Vector3.zero)
-        {
-            hasTarget = false;
-            return;
-        }
-        if (Vector3.Distance(transform.position, target) <= .5)
-        {
-            target = Vector3.zero;
-            return;
-        }
-        transform.rotation = Quaternion.RotateTowards(transform.rotation,
-            Quaternion.LookRotation(target - transform.position), rotationSpeed * Time.deltaTime);
-        rb.velocity = transform.forward * currentSpeed;
-        
-        if (currentSpeed < maxSpeed) 
-            currentSpeed += acceleration * Time.deltaTime * 10;
-    }
-
-    public void MoveTo(Vector3 target)
-    {
-        rb.isKinematic = false;
-        rb.useGravity = true;
-        this.target = target;
         hasTarget = true;
+        StartCoroutine(Move(target, time));
     }
 
-
-    public float GetCurrentSpeed()
+    IEnumerator Move(Vector3 target, float time)
     {
-        return rb.velocity.magnitude;
+        target += new Vector3(0,0,-1f); 
+        float elapsedTime = 0;
+        Vector3 startingPos = transform.position;
+        Vector3 targetRotation = transform.position - target;
+        while (elapsedTime < time)
+        {
+            transform.position = Vector3.Lerp(startingPos, target, (elapsedTime / time));
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(targetRotation), (elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = target;
+        hasTarget = false;
+        StopAllCoroutines();
     }
+    
     
     public bool GetHasTarget()
     {
