@@ -136,7 +136,7 @@ public class ModelController : MonoBehaviour
     private IEnumerator SendConfiguration()
     {
         DBInit dbInit = new DBInit();
-        dbInit.filename = "base.txt";
+        dbInit.filename = "base2.txt";
         dbInit.maxFrames = 1000;
         string json = JsonUtility.ToJson(dbInit);
         using (UnityWebRequest www = UnityWebRequest.Put(serverUrl + sendConfigEndpoint,json))
@@ -176,6 +176,8 @@ public class ModelController : MonoBehaviour
 
             // Store the old positions for each agentF
             oldCarPositions = new Dictionary<string, Vector3>(newCarPositions);
+
+            Debug.Log(carData.cars.Count);
 
             newCarPositions.Clear();
             
@@ -237,7 +239,6 @@ public class ModelController : MonoBehaviour
 
             foreach (KeyValuePair<string,GameObject> trafficLightObject in trafficLightObjects)
             {
-                Debug.Log(trafficLightStatus[trafficLightObject.Key]);
                 trafficLightObject.Value.GetComponent<TrafficSignController>().SetLight(trafficLightStatus[trafficLightObject.Key]);
             }
             

@@ -378,10 +378,10 @@ class CarsModel(Model):
         output: none
         """
         #Place car in each frame
-        
-        self.placeCar()
-        self.placeCar()
-        self.placeCar()
+
+        for i in range(3):
+            self.placeCar()
+
         
 
 

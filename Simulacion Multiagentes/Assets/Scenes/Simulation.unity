@@ -200,8 +200,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.069435894, y: 0.9300387, z: -0.23161183, w: 0.27669954}
-  m_LocalPosition: {x: 5.0453606, y: 4.22377, z: 27.712784}
+  m_LocalRotation: {x: -0.033686943, y: -0.9573348, z: 0.124768995, w: -0.25847238}
+  m_LocalPosition: {x: 7.2391233, y: 2.0481033, z: 26.494135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e572f32ef22378e488e5e19920bc8530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layout: {fileID: 4900000, guid: e9842dd15c4a12445a65d408135793f4, type: 3}
+  layout: {fileID: 4900000, guid: 5fa1732276c77874c9c97cbd719edf03, type: 3}
   roadPrefab: {fileID: 6431243436804019422, guid: d199fbf80e6ea2e4abbd853b31428ba7,
     type: 3}
   buildingPrefabs:
@@ -592,7 +592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &1367511659
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed9184c2cf7b7a4fbb025ed5d966154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  betterCarMovement: 1
+  betterCarMovement: 0
   carPrefabs:
   - {fileID: 1633056053288543168, guid: 0f749833a4b80604194bb11605078e9a, type: 3}
   - {fileID: 1633056053288543168, guid: fe98fe3953b3e8c44a3e931f893f8569, type: 3}
@@ -702,7 +702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629235214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

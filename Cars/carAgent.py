@@ -17,6 +17,9 @@ class CarAgent(Agent):
         self.route = self.model.graph.a_star_algorithm(f'{start[0]}-{start[1]}', self.destination)
         if not self.route:
             print("ERROR")
+            self.model.grid.remove_agent(self)
+            self.model.schedule.remove(self)
+
            
     
     def continueRoute(self):
@@ -24,6 +27,9 @@ class CarAgent(Agent):
             x,y = [int(x) for x in self.route[0].split("-")]
             self.model.grid.move_agent(self,(x,y))
             self.route.pop(0)
+        else:
+            self.model.grid.remove_agent(self)
+            self.model.schedule.remove(self)
 
     def listContents(self,x,y):
         return self.model.grid.get_cell_list_contents([(x,y)])
